@@ -1,3 +1,1 @@
-export const lotties = [
-  //require('./lotties/lottie.json'),
-];
+export const lotties = [];
