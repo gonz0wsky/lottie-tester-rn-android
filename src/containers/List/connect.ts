@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {lotties} from '../../constants';
+import {Props} from './types';
 
 const useConnect = () => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<Props['navigation']>();
 
   const handlePress = useCallback(
     (index: number) => {

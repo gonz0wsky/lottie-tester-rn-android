@@ -1,4 +1,6 @@
-export type Props = {};
+import {MainStackScreenProps} from '../../navigators/types';
+
+export type Props = MainStackScreenProps<'View'> & {};
 
 export type ContainerProps = {
   backgroundColor: string;

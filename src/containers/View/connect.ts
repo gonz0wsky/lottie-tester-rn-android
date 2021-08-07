@@ -1,13 +1,14 @@
 import {useRoute} from '@react-navigation/native';
 import {useCallback, useState} from 'react';
 import theme from '../../theme';
+import {Props} from './types';
 
 const useConnect = () => {
   const [degrees, setDegrees] = useState(0);
   const [sizePercentage, setSizePercentage] = useState(50);
   const [backgroundColor, setBackgroundColor] = useState(theme.colors.white);
 
-  const {params} = useRoute();
+  const {params} = useRoute<Props['route']>();
   const source = params?.lottie;
 
   const handleChangeDegrees = useCallback(() => {
