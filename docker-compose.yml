@@ -1,0 +1,12 @@
+version: "2"
+services:
+  lottietester:
+    image: ubuntu
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+       apt update
+       apt -y install curl 
+       curl -sL https://deb.nodesource.com/setup_16.x | bash - 
+       apt install nodejs 
+       node -v
