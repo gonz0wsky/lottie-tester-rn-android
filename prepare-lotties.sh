@@ -18,10 +18,3 @@ for file in "$LOTTIES_PATH"/*; do
   echo "  require('./lotties/$filename')," >> $LOTTIE_CONSTANTS_FILE
 done
 echo "];" >> $LOTTIE_CONSTANTS_FILE
-
-# Build dev apk
-yarn
-yarn bundle-android
-cd android
-./gradlew assembleDebug
-cd app/build/outputs/apk/debug/
