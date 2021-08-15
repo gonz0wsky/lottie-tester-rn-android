@@ -1,12 +1,35 @@
 version: "2"
 services:
   lottietester:
-    image: ubuntu
+    image: androidsdk/android-30
+    volumes:
+    - ./:/host
+    - ./lotties:/host-lotties
     entrypoint: ["/bin/sh","-c"]
     command:
     - |
-       apt update
-       apt -y install curl 
-       curl -sL https://deb.nodesource.com/setup_16.x | bash - 
-       apt install nodejs 
-       node -v
+        curl -sL https://deb.nodesource.com/setup_14.x | bash - 
+        apt-get -y install nodejs git 
+        sdkmanager "platform-tools" "platforms;android-29"
+
+        cd /home
+        rm -rf tester
+        git clone https://github.com/gonz0wsky/lottie-tester-rn-android.git tester 
+        cd tester/src
+        rm lotties/.gitkeep
+        cp /host-lotties/*.json lotties/
+        cd ..
+
+        ./prepare-lotties.sh
+        npm install 
+
+        mkdir ./android/app/src/main/assets/
+        touch ./android/app/src/main/assets/index.android
+        npx react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android --assets-dest ./android/app/src/main/res/
+        cd android && ./gradlew assembleDebug
+
+        cd app/build/outputs/apk/debug/
+        rm -rf /host/output
+        mkdir /host/output
+        cp app-debug.apk /host/output/tester.apk
+
